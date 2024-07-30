@@ -1,0 +1,253 @@
+import { Text, SafeAreaView, ScrollView, FlatList, View, StyleSheet, Image } from 'react-native';
+import React, { Component } from 'react';
+
+const DATA = {
+  "India": {
+    "States": {
+      "Rajasthan": {
+        "PlacesToVisit": [
+          {
+            "Name": "Jaipur",
+            "Description": "The Pink City, known for its palaces and forts.",
+            "Attractions": [
+              {
+                "Name": "Amber Fort",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Hawa Mahal",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "City Palace",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          },
+          {
+            "Name": "Udaipur",
+            "Description": "The City of Lakes, known for its beautiful lakes and palaces.",
+            "Attractions": [
+              {
+                "Name": "Lake Pichola",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "City Palace",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Jag Mandir",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          }
+        ]
+      },
+      "Maharashtra": {
+        "PlacesToVisit": [
+          {
+            "Name": "Mumbai",
+            "Description": "The financial capital of India, known for its vibrant city life.",
+            "Attractions": [
+              {
+                "Name": "Gateway of India",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Marine Drive",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Elephanta Caves",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          },
+          {
+            "Name": "Pune",
+            "Description": "A cultural hub, known for its educational institutions and historical sites.",
+            "Attractions": [
+              {
+                "Name": "Shaniwar Wada",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Aga Khan Palace",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Sinhagad Fort",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          }
+        ]
+      },
+      "Uttarakhand": {
+        "PlacesToVisit": [
+          {
+            "Name": "Dehradun",
+            "Description": "The capital city, known for its scenic beauty and educational institutions.",
+            "Attractions": [
+              {
+                "Name": "Robber's Cave",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Sahastradhara",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Forest Research Institute",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          },
+          {
+            "Name": "Nainital",
+            "Description": "A popular hill station, known for its lakes and natural beauty.",
+            "Attractions": [
+              {
+                "Name": "Naini Lake",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Naina Devi Temple",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Snow View Point",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          }
+        ]
+      },
+      "Tamil Nadu": {
+        "PlacesToVisit": [
+          {
+            "Name": "Chennai",
+            "Description": "The capital city, known for its beaches and cultural heritage.",
+            "Attractions": [
+              {
+                "Name": "Marina Beach",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Kapaleeshwarar Temple",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Fort St. George",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          },
+          {
+            "Name": "Madurai",
+            "Description": "An ancient city, known for its rich cultural heritage and temples.",
+            "Attractions": [
+              {
+                "Name": "Meenakshi Amman Temple",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Thirumalai Nayakkar Palace",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Gandhi Memorial Museum",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          }
+        ]
+      },
+      "West Bengal": {
+        "PlacesToVisit": [
+          {
+            "Name": "Kolkata",
+            "Description": "The cultural capital of India, known for its historical landmarks.",
+            "Attractions": [
+              {
+                "Name": "Victoria Memorial",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Howrah Bridge",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Dakshineswar Kali Temple",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          },
+          {
+            "Name": "Darjeeling",
+            "Description": "A beautiful hill station, known for its tea gardens and scenic beauty.",
+            "Attractions": [
+              {
+                "Name": "Tiger Hill",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Darjeeling Himalayan Railway",
+                "Image": "https://via.placeholder.com/150"
+              },
+              {
+                "Name": "Batasia Loop",
+                "Image": "https://via.placeholder.com/150"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+const renderAttraction = ({ item }) => (
+  <View style={styles.item}>
+    <Text style={styles.subtitle}>{item.Name}</Text>
+  </View>
+);
+const renderPlace = ({ item }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{item.Name}</Text>
+    <Text style={styles.description}>{item.Description}</Text>
+    <FlatList
+      data={item.Attractions}
+      renderItem={renderAttraction}
+      keyExtractor={item => item.id}
+    />
+  </View>
+);
+const renderState = ({ item }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{item[0]}</Text>
+    <FlatList
+      data={item[1].PlacesToVisit}
+      renderItem={renderPlace}
+      keyExtractor={item => item.id}
+      />
+  </View>
+);
+const objectKeyAttraction = () => {
+  const states = Object.entries(DATA.India.States);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={states}
+        renderItem={renderState}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
+  );
+};
+
+
+
+
+export default objectKeyAttraction;

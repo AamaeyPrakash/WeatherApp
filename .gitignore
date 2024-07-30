@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+# appWriteConfig
+appWriteConfig.js
 # Xcode
 #
 build/
