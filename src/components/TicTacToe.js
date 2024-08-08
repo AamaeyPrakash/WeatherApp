@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet,TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Button, Alert, StyleSheet,TouchableOpacity, ImageBackground } from "react-native";
 
 const TicTacToe = () => {
     const [board, setBoard] = useState(Array(9).fill(null));
@@ -52,42 +52,57 @@ const TicTacToe = () => {
   
     return (
         <View style={styles.container}>
-            <View style={styles.board}>
-            {board.map((_,index) => renderSquare(index))}
-            </View>
+            <ImageBackground source={require('../assets/wood_bg.jpg')} style={styles.board}>
+                {board.map((_, index) => renderSquare(index))}
+            </ImageBackground>
             <TouchableOpacity onPress={()=> {
                 setBoard(Array(9).fill(null));
                 setIsNext(true);
-            }}>
-                <Text>Restart Game</Text>
+            }} style={styles.restartButton}>
+                <Text style={styles.restartText}>Restart Game</Text>
             </TouchableOpacity>
-           
         </View>
     );
   };
   const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:"center",
-        alignContent:"center",
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "black",
     },
-    board:{
-        flexDirection:"row",
-        flexWrap:"wrap",
-        width:429, 
-       },
-    square:{
-        width:143,
-        height:143,
-        justifyContent:"center",
-        alignContent:"center",
-        borderWidth:1,
-        borderColor:"white"
+    board: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: 430,
+        height: 430,
+        padding: 5,
     },
-    squareText:{
-        fontSize:20,
-        textAlign: "center",
-    }
+    square: {
+        width: 140,
+        height: 140,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "rgba(0, 0, 0, 0.2)",
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    },
+    squareText: {
+        fontSize: 40,
+        color: '#8B4513',
+        fontWeight: 'bold',
+    },
+    restartButton: {
+        marginTop: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        backgroundColor: '#8B4513',
+        borderRadius: 5,
+    },
+    restartText: {
+        color: 'white',
+        fontSize: 18,
+    },
   })
 
-  export default TicTacToe
+  export default TicTacToe;
