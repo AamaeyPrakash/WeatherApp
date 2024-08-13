@@ -1,12 +1,16 @@
 import React from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import FoodCard from '../components/FoodCard';
 
 function DisplayScreen() {
   return (
-    <View>
+
+      <ScrollView>
         <FoodCard/>
-    </View>
+        <FoodCard/>
+        <FoodCard/>
+      </ScrollView>
+
   )
 }
 
