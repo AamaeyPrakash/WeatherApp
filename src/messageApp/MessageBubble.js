@@ -21,14 +21,15 @@ const styles = StyleSheet.create({
   },
   sent: {
     alignSelf: 'flex-end',
-    backgroundColor: '#dcf8c6',
+    backgroundColor: '#005c4b',
   },
   received: {
     alignSelf: 'flex-start',
-    backgroundColor: '#ececec',
+    backgroundColor: '#202c33',
   },
   messageText: {
     fontSize: 16,
+    color: 'white',
   },
 });
 

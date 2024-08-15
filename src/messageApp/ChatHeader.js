@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+const iconPlaceholder = require('../assets/iconPlaceholder.png')
 const ChatHeader = ({ title }) => {
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.title}>{title}</Text>
-      <Icon name="more-vert" type="material" color="#fff" />
+      <Image source={iconPlaceholder} style={styles.icon} />
     </View>
   );
 };
@@ -17,13 +18,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: '#3b5998',
+    backgroundColor: '#202c33',
   },
   title: {
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
   },
+  icon: {
+    width: 30,
+    height:30,
+  }
 });
 
 export default ChatHeader;

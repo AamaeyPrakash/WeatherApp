@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { View, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+
+const sendArrow = require('../assets/sendArrow.png')
 
 const InputBar = ({ onSend }) => {
   const [text, setText] = useState('');
@@ -21,7 +22,7 @@ const InputBar = ({ onSend }) => {
         placeholder="Type a message"
       />
       <TouchableOpacity onPress={handleSend}>
-        <Icon name="send" type="material" color="#3b5998" />
+        <Image source={sendArrow} style={styles.sendButton}/>
       </TouchableOpacity>
     </View>
   );
@@ -32,18 +33,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#ececec',
   },
   textInput: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#2a3942',
     borderRadius: 20,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#202c33',
+    color:'white',
   },
+  sendButton: {
+    width: 29,
+    height:32,
+    borderRadius:15,
+  }
 });
 
 export default InputBar;
