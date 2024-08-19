@@ -9,13 +9,14 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return(
-    <NavigationContainer>
+    // <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Display" component={DisplayScreen} />
         <Tab.Screen name="Profile" component={AppNavigator} />
       </Tab.Navigator>
-    </NavigationContainer>  )
+    // </NavigationContainer> 
+  );
 }
 
 export default TabNavigator;

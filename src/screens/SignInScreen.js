@@ -22,7 +22,7 @@ const SignInScreen = () =>{
             <TextInput placeholder='Email' value={email} onChangeText={setEmail} />
             <TextInput placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry/>
 
-            <Button title='Sign Up' onPress={handleSignUp} />
+            <Button title='Sign In' onPress={handleSignUp} />
             {message ?<Text>{message}</Text>:null}
         </View>
     )

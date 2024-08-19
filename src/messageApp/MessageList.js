@@ -20,6 +20,7 @@ const MessageList = ({ messages }) => {
       renderItem={({ item }) => (
         <MessageBubble message={item.text} isSentByUser={item.isSentByUser} />
       )}
+      inverted
       style={styles.messageList}
     />
   );
