@@ -9,6 +9,7 @@ import AppNavigator from './src/navigation/AppNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import SignInScreen from './src/screens/SignInScreen';
+import UserProfiles from './src/screens/UserList';
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -19,6 +20,8 @@ const App = () => {
         <Stack.Navigator initialRouteName='SignUp'>
             <Stack.Screen name="SignIn" component={ SignInScreen } />
             <Stack.Screen name="SignUp" component={ SignUpScreen } />
+            <Stack.Screen name="UserList" component={UserProfiles} />
+            <Stack.Screen name="ChatScreen" component={ChatScreen} />
         </Stack.Navigator>
     </NavigationContainer>
     );

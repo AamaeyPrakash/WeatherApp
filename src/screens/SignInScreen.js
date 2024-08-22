@@ -1,29 +1,40 @@
-import React, {useState,} from 'react';
-import {View, TextInput, TouchableOpacity, Text, Button} from 'react-native';
+import React, {useEffect, useState,} from 'react';
+import {View, TextInput, TouchableOpacity, Text, Button, Alert} from 'react-native';
 import { account } from '../../appWriteConfig';
 
-const SignInScreen = () =>{
+const SignInScreen = ({ navigation }) =>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [message, setMessage] = useState('')
 
-    const handleSignUp = async () =>{
+    useEffect(()=>{
+        const checkActiveSession = async () => {
+            try{
+                const session = await account.getSession("current");
+                if(session){
+                    navigation.navigate("UserList");
+                }
+            } catch (error) {
+                Alert.alert('Error', error.message)
+            }
+        };
+        checkActiveSession();
+    })
+
+    const handleSignIn = async () =>{
         try{
-            await account.create("unique()",email,password);
-            setMessage("User Created Successfully!");
+            await account.createEmailPasswordSession(email,password);
+            NavigationContainer.navigate("UserList")
+        } catch(error){
+            Alert.alert('Error', error.message)
         }
-        catch(error){
-            setMessage(error.message);
-        }
-    }
+}
 
     return(
         <View>
-            <TextInput placeholder='Email' value={email} onChangeText={setEmail} />
-            <TextInput placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry/>
+            <TextInput placeholder='Email' value={email} onChangeText={setEmail} placeholderTextColor="#000"/>
+            <TextInput placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry placeholderTextColor="#000"/>
 
-            <Button title='Sign In' onPress={handleSignUp} />
-            {message ?<Text>{message}</Text>:null}
+            <Button title='Sign In' onPress={handleSignIn} />
         </View>
     )
 }

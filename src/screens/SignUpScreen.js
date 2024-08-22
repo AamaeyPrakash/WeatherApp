@@ -36,7 +36,7 @@ const SignUpScreen = ({ navigation }) => {
                 userInfo
             );
             setMessage("User Created Successfully!");
-            navigation.navigate("SignInScreen");
+            navigation.navigate('UserList');
         } catch (error) {
             setMessage(error.message);
         }
@@ -68,8 +68,9 @@ const SignUpScreen = ({ navigation }) => {
                 {message ? <Text style={styles.errorText}>{message}</Text> : null}
             <Button
                 title='Already Have an Account?'
-                onPress={() => navigation.navigate("SignInScreen")}
+                onPress={() => navigation.navigate("SignIn")}
                 style={styles.button}
+                placeholderTextColor="#000"
             />
         </View>
     );
