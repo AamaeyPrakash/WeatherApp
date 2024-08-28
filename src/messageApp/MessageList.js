@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import MessageBubble from './MessageBubble';
 
 const MessageList = ({ messages }) => {
-  console.log('Rendering MessageList with messages:', messages); // Debugging line
+  // console.log('Rendering MessageList with messages:', messages); // Debugging line
 
   if (!messages || messages.length === 0) {
     return (

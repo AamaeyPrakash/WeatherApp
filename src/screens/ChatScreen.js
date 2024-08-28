@@ -1,17 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, StatusBar, ImageBackground } from 'react-native';
-import { databases } from '../../appWriteConfig';
+import { databases, account } from '../../appWriteConfig';
 import ChatHeader from '../messageApp/ChatHeader';
 import MessageList from '../messageApp/MessageList';
 import InputBar from '../messageApp/InputBar';
+import { Query } from 'appwrite';
 
-const ChatScreen = () => {
+const ChatScreen = ({route}) => {
   const [messages, setMessages] = useState([]);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const {RecieverId,RecieverName} = route.params;
 
+  console.log(route);
+  
+  useEffect(()=>{
+    const getCurrentUser = async () => {
+      try {
+        const user = await account.get();
+        setCurrentUserId(user.$id);
+        //console.log(user);
+      }
+      catch(error){
+        console.error(error);
+      }
+    };
+    getCurrentUser();
+  },[])
   const handleSend = async(message) => {
     const newMessage = {
       text:message,
       isSentByUser:true,
+      sendersID:currentUserId,
+      recieverID:RecieverId,
+      timestamp:new Date().toISOString(),
     }
     try{
       const response = await databases.createDocument(
@@ -29,21 +50,39 @@ const ChatScreen = () => {
 
   useEffect(()=>{
     const fetchMessages = async() => {
+      if (!currentUserId) {
+        console.error("user Not found");
+        return;
+      }
+      if (!RecieverId) {
+        console.error("reciever Not found");
+        return;
+
+      }
       try{
         const response = await databases.listDocuments(
           "66b0c833001eaadd638b",
-          "66bdefde0019fedaa635",
+          "66bdefde0019fedaa635",[
+            Query.or([
+              Query.and([ Query.equal("sendersID",currentUserId),Query.equal("recieverID",RecieverId)]),
+              Query.and([ Query.equal("sendersID",RecieverId),Query.equal("recieverID",currentUserId)]),
+            ])
+          
+          ]
         );
-        console.log(response.documents)
+        //console.log(response.documents)
         setMessages(response.documents);
       }
       catch(error){
         console.error("Error Saving Messages",error);
       }
     };
-    fetchMessages();
-  },[]);
+    if(currentUserId && RecieverId){
+       fetchMessages();
+    }
+  },[currentUserId,RecieverId]);
 
+  const RecieverChatName = "Chat with " + RecieverName
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground 
@@ -51,7 +90,7 @@ const ChatScreen = () => {
         source={require('../assets/bgPlaceholder.jpg')}
         >
         <StatusBar barStyle="light-content" />
-        <ChatHeader title="Chat with Aamaey" />
+        <ChatHeader title={RecieverChatName} />
         <MessageList messages={messages} />
         <InputBar onSend={handleSend} />
       </ImageBackground>

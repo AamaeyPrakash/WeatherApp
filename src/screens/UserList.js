@@ -25,7 +25,7 @@ const UserList = ({ navigation }) => {
     }, []);
 
     const renderUser = ({ item }) => (
-        <TouchableOpacity style={styles.userButton} onPress={() => navigation.navigate('ChatScreen', { userId: item.$id, name: item.name })}>
+        <TouchableOpacity style={styles.userButton} onPress={() => navigation.navigate('ChatScreen', { RecieverId: item.$id, RecieverName: item.name })}>
             <Image source={require('../assets/iconPlaceholder.png')} style={styles.displayPicture} />
             <View style={styles.userInfo}>
                 <Text style={styles.userName}>{item.name}</Text>
