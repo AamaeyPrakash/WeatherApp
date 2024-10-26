@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     width: 29,
     height:32,
     borderRadius:15,
-  }
+  },
 });
 
 export default InputBar;
